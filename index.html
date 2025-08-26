@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIBOX - AI模型管理与应用平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --gray: #9ca3af;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        .nav a:hover {
+            opacity: 0.8;
+        }
+        
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: var(--dark);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background: #0da271;
+        }
+        
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+        }
+        
+        .showcase {
+            padding: 80px 0;
+            background: #f5f7fa;
+        }
+        
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .showcase-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .showcase-img {
+            height: 250px;
+            background: linear-gradient(135deg, #6366f1, #10b981);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .showcase-content {
+            padding: 25px;
+        }
+        
+        .showcase-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+        
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .footer-section p, .footer-section a {
+            color: var(--gray);
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            font-size: 1.5rem;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .showcase-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-robot logo-icon"></i>
+                    <h1>AIBOX</h1>
+                </div>
+                <div class="nav">
+                    <a href="#features">功能</a>
+                    <a href="#showcase">展示</a>
+                    <a href="#download">下载</a>
+                    <a href="#contact">联系我们</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h2>下一代AI模型管理与应用平台</h2>
+            <p>AIBOX是一个功能强大的AI客户端，提供模型管理、智能对话、语音处理、图像识别与生成等全方位AI能力，让AI技术触手可及。</p>
+            <a href="#download" class="btn">立即下载</a>
+            <a href="#features" class="btn btn-secondary">了解更多</a>
+        </div>
+    </section>
+    
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>强大功能</h2>
+                <p>AIBOX集成了多种AI能力，为您提供一站式AI解决方案</p>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-cube feature-icon"></i>
+                    <h3>模型管理</h3>
+                    <p>轻松下载、更新和管理多种AI模型，支持本地和云端模型部署。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-comments feature-icon"></i>
+                    <h3>智能对话</h3>
+                    <p>与AI模型进行自然流畅的对话，支持多轮对话和上下文理解。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-brain feature-icon"></i>
+                    <h3>模型推理</h3>
+                    <p>使用AI模型进行高效推理，支持多种任务和自定义参数设置。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-sliders-h feature-icon"></i>
+                    <h3>模型微调</h3>
+                    <p>使用自有数据对模型进行微调，打造专属AI助手。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-database feature-icon"></i>
+                    <h3>RAG与知识库</h3>
+                    <p>支持检索增强生成(RAG)和知识库管理，提供更精准的信息检索。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-project-diagram feature-icon"></i>
+                    <h3>工作流</h3>
+                    <p>可视化工作流设计，将多个AI任务组合成复杂的工作流程。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-microphone feature-icon"></i>
+                    <h3>语音识别</h3>
+                    <p>高精度语音识别，支持多种语言和实时转写。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-volume-up feature-icon"></i>
+                    <h3>语音合成</h3>
+                    <p>自然流畅的语音合成，多种音色可选，接近真人发音。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-clone feature-icon"></i>
+                    <h3>语音克隆</h3>
+                    <p>使用少量样本即可克隆声音，生成具有特定音色的语音。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-image feature-icon"></i>
+                    <h3>图像识别</h3>
+                    <p>识别图像中的物体、场景和文字，支持多种图像分析任务。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-paint-brush feature-icon"></i>
+                    <h3>图像生成</h3>
+                    <p>根据文本描述生成高质量图像，支持多种艺术风格。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-tasks feature-icon"></i>
+                    <h3>任务管理</h3>
+                    <p>统一管理所有AI任务，查看历史记录和结果导出。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="showcase" id="showcase">
+        <div class="container">
+            <div class="section-title">
+                <h2>功能展示</h2>
+                <p>探索AIBOX的强大功能和优雅界面</p>
+            </div>
+            
+            <div class="showcase-grid">
+                <div class="showcase-item">
+                    <div class="showcase-img">模型管理界面</div>
+                    <div class="showcase-content">
+                        <h3>直观的模型管理</h3>
+                        <p>轻松浏览、下载和管理各种AI模型，查看模型详情和使用情况。</p>
+                    </div>
+                </div>
+                
+                <div class="showcase-item">
+                    <div class="showcase-img">智能对话界面</div>
+                    <div class="showcase-content">
+                        <h3>流畅的对话体验</h3>
+                        <p>与AI助手进行自然对话，支持多轮对话、上下文理解和个性化设置。</p>
+                    </div>
+                </div>
+                
+                <div class="showcase-item">
+                    <div class="showcase-img">语音功能界面</div>
+                    <div class="showcase-content">
+                        <h3>语音交互</h3>
+                        <p>体验语音识别、合成和克隆功能，与AI进行语音交互。</p>
+                    </div>
+                </div>
+                
+                <div class="showcase-item">
+                    <div class="showcase-img">图像生成界面</div>
+                    <div class="showcase-content">
+                        <h3>创意图像生成</h3>
+                        <p>通过文本描述生成高质量图像，支持多种风格和分辨率设置。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta" id="download">
+        <div class="container">
+            <h2>开始使用AIBOX</h2>
+            <p>立即下载AIBOX，体验全方位的AI功能，释放人工智能的无限潜力。</p>
+            <a href="#" class="btn">Windows版下载</a>
+            <a href="#" class="btn">macOS版下载</a>
+            <a href="#" class="btn">Linux版下载</a>
+        </div>
+    </section>
+    
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于AIBOX</h3>
+                    <p>AIBOX是一个功能强大的AI模型管理与应用平台，旨在让每个人都能轻松使用人工智能技术。</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <a href="#features">功能</a>
+                    <a href="#showcase">展示</a>
+                    <a href="#download">下载</a>
+                    <a href="#">文档</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>联系我们</h3>
+                    <p><i class="fas fa-envelope"></i> contact@aibox.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 AIBOX - 所有权利保留</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
